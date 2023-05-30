@@ -1,0 +1,50 @@
+# templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ml-algorithm-api.fullname" . }}
+  labels:
+    app: {{ include "ml-algorithm-api.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "ml-algorithm-api.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "ml-algorithm-api.name" . }}
+    spec:
+      containers:
+        - name: ml-algorithm-api
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
+          env:
+            - name: PORT
+              value: "8080"
+            - name: TLS_CERT_PATH
+              value: "/certs/tls.crt"
+            - name: TLS_KEY_PATH
+              value: "/certs/tls.key"
+          volumeMounts:
+            - name: tls-certs
+              mountPath: "/certs"
+              readOnly: true
+      volumes:
+        - name: tls-certs
+          secret:
+            secretName: {{ include "ml-algorithm-api.fullname" . }}
+            items:
+              - key: tls.crt
+                path: tls.crt
+              - key: tls.key
+                path: tls.key

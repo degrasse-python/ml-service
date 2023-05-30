@@ -1,0 +1,31 @@
+# chart.yaml
+apiVersion: v2
+name: ml-algorithm-api
+version: 1.0.0
+
+# values.yaml
+replicaCount: 1
+image:
+  repository: my-ml-algorithm-api-image
+  tag: latest
+  pullPolicy: IfNotPresent
+service:
+  name: ml-algorithm-api
+  type: ClusterIP
+  port: 443
+  targetPort: 8080
+  tls:
+    enabled: true
+ingress:
+  enabled: false
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 200m
+    memory: 256Mi
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
