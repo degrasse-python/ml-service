@@ -13,6 +13,8 @@ service:
     enabled: true
 ingress:
   enabled: false
+  path: 'mlapi'
+  
 resources:
   limits:
     cpu: 500m
