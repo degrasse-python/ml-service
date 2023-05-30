@@ -1,0 +1,21 @@
+# chart.yaml
+apiVersion: v2
+name: ml-algorithm-api
+version: 1.0.0
+
+description: "An example of a ML service that is used to make predictions"
+keywords:
+  - "ML"
+home: "https://github.com/degrasse-python/ml-service"
+sources:
+  - "https://github.com/degrasse-python/portfolio/tree/master/wine_quality"
+dependencies: # A list of the chart requirements
+  - name: nginx-ingress
+    version: 0.17.1
+    repository: oci://ghcr.io/nginxinc/charts
+    # condition: (optional) A yaml path that resolves to a boolean, used for enabling/disabling charts (e.g. subchart1.enabled )
+    #import-values: # (optional)
+    #  - ImportValues holds the mapping of source values to parent key to be imported. Each item can be a string or pair of child/parent sublist items.
+maintainers: # (optional)
+  - name: Deon Saunders
+    email: bucoyas@gmail.com
