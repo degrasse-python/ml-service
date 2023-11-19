@@ -18,4 +18,4 @@ dependencies: # A list of the chart requirements
     #  - ImportValues holds the mapping of source values to parent key to be imported. Each item can be a string or pair of child/parent sublist items.
 maintainers: # (optional)
   - name: Deon Saunders
-    email: bucoyas@gmail.com
+    email: self@gmail.com
